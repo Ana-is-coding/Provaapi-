@@ -1,25 +1,23 @@
-import { con } from "./connection.js"
+import { con } from './connection.js'
 
 export async function listarAnimes(nome){
     const comando = 
-    `INSERT INTO tb_anime
-     WHERE id_anime = ?
-     AND nm_anime = ?`
+    `insert into tb_anime(nm_anime)
+     values(?);`
 
-    const [animes] = await con.query(comando, [nome])
-    return animes[0];
+    const [animes] = await con.query(comando, [nome.nome])
+    return animes.affectedRows;
 }
 
 export async function animes(anime)
 {
     const comando = 
-    `INSERT INTO tb_anime
-     WHERE id_anime = 1
-     AND nm_anime = Naruto`
-
-    const animer = await con.query(comando, [anime])
+    `select  ID_ANIME,
+    NM_ANIME	 nome
+    from  TB_ANIME`
+     
+    const [animer] = await con.query(comando)
     return animer;
-
 }
 
 
